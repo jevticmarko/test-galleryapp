@@ -1,0 +1,26 @@
+{
+    "Header": {
+
+        "Login" : ".nav-link",
+        "Register" : ".nav-link"
+    },
+    "Login" : {
+
+        "Email" : "#email",
+        "Password" : "#password",
+        "Submit" : ".btn",
+        "Alert" : ".alert"
+    },
+    "Register" : {
+        "firstName":"#first-name",
+        "lastName":"#last-name",
+        "rEmail" : "#email",
+        "rPassword":"#password",
+        "rPasswordConfirmation":"#password-confirmation",
+        "termsAndConditions":".form-check-input",
+        "rSubmit":".btn",
+        "alertMessage":".alert"
+        
+    }
+
+}
