@@ -1,4 +1,5 @@
 const Locators = require("../../fixtures/Locators.json")
+import {authLogin} from "../../page_objects/loginObject"
 
 describe ("Login testing", ()=>{
 
@@ -13,6 +14,11 @@ describe ("Login testing", ()=>{
     beforeEach("Visit link", ()=>{
         cy.visit("/")
         cy.url().should("contains", "https://gallery-app")
+    })
+    it.only("login with pom", ()=>{
+        cy.visit("/login")
+        authLogin.login(correctEmail, correctPassword)
+        
     })
 
     it("Click on login", ()=>{

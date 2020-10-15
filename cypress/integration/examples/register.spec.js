@@ -1,4 +1,5 @@
 const Locators = require("../../fixtures/Locators.json")
+import {authRegister} from "../../page_objects/registerObject"
 
 describe ("Register testing", ()=>{
 
@@ -19,6 +20,15 @@ describe ("Register testing", ()=>{
         cy.visit("/register")
         cy.url().should("contains", "register")
     })
+
+    it.only("Register user with POM", ()=>{
+        authRegister.register(first_name,last_name,"milojkomilojkovic@gmail.com",correct_password,correct_password)
+    })
+
+
+
+
+
     it("Create user without first name", ()=>{
         cy.get(Locators.Register.lastName).type(last_name)
         cy.get(Locators.Register.rEmail).type(correct_email)

@@ -9,7 +9,8 @@
         "Email" : "#email",
         "Password" : "#password",
         "Submit" : ".btn",
-        "Alert" : ".alert"
+        "Alert" : ".alert",
+        "Logout" : ".nav-link"
     },
     "Register" : {
         "firstName":"#first-name",
@@ -21,6 +22,33 @@
         "rSubmit":".btn",
         "alertMessage":".alert"
         
+    },
+    "Create" : {
+        "createPage" : ".nav-link",
+        "title" : "#title",
+        "description" : "#description",
+        "img" : ".form-control",
+        "pageTitle" : ".title-style",
+        "submit" : ".btn",
+        "cancel" : ".btn",
+        "myGalleries" : ".nav-link",
+        "galleryTitle" : ".box-title",
+        "deleteImg" : ".fas",
+        "moveButton" : ".fas",
+        "alert" : ".alert"
+    },
+    "Edit" : {
+        "editButton":".btn",
+        "cancelButton":".btn"
+    },
+    "Delete" : {
+        "deleteButton" : ".btn"
+    },
+    "Comment" : {
+        "addComment" : ".btn",
+        "addedCom" : ".list-group-item",
+        "allComments" : ".list-group",
+        "delComment" : ".fas"
     }
-
+ 
 }

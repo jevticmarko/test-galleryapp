@@ -23,3 +23,14 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+const Locators = require("../fixtures/Locators.json")
+
+Cypress.Commands.add("Login", (email, password)=>{
+    cy.visit("/login")
+    cy.get(Locators.Login.Email).type(email)
+    cy.get(Locators.Login.Password).type(password)
+    cy.get(Locators.Login.Submit).click()
+    cy.server()
+    cy.route("GET", "https://gallery-api.vivifyideas.com/api/galleries?page=1&term=").as("waiting")
+    cy.wait("@waiting")
+})
