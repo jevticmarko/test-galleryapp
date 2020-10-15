@@ -48,7 +48,8 @@
         "addComment" : ".btn",
         "addedCom" : ".list-group-item",
         "allComments" : ".list-group",
-        "delComment" : ".fas"
+        "delComment" : ".fas",
+        "alert" : ".alert"
     }
  
 }
