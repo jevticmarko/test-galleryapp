@@ -21,15 +21,8 @@ describe ("Create gallery testing", ()=>{
     it("create gallery using DOM", ()=>{
         authCreate.createGallery(title,desc,imgUrl2)
     })
-    it("Creating gallery", ()=>{
-        cy.get(Locators.Create.title).type(title)
-        cy.get(Locators.Create.description).type(desc)
-        cy.get(Locators.Create.img).eq(2).type(imgUrl2)
-        cy.get(Locators.Create.submit).eq(0).click()
-        cy.get(Locators.Create.pageTitle).should("have.text", "All Galleries")
-        cy.get(Locators.Create.myGalleries).eq(1).click()
-        cy.wait(500)
-        cy.get(Locators.Create.galleryTitle).eq(0).click()
+    it.only("Creating gallery", ()=>{
+        cy.CreateGallery(title, desc, imgUrl2)
     })
     it("Create gallery without title", ()=>{
         cy.get(Locators.Create.description).type(desc)
@@ -117,11 +110,14 @@ describe ("Create gallery testing", ()=>{
         cy.get(Locators.Create.submit).eq(0).click()
         cy.get(Locators.Create.alert).should("be.visible").and("have.text", "The description may not be greater than 1000 characters.")
     })
-    it.only("Wrong image format", ()=>{
+    it("Wrong image format", ()=>{
         cy.get(Locators.Create.title).type(title)
         cy.get(Locators.Create.img).eq(2).type("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR97MdbZBSV0Gi73A1hjopsxGdbODTbytm4iA&usqp=CAU")
         cy.get(Locators.Create.submit).eq(0).click()
         cy.get(Locators.Create.alert).should("be.visible").and("have.text", "Wrong format of image")
+    })
+    afterEach ("Clear cache", ()=>{
+        cy.clearLocalStorage()
     })
 
 

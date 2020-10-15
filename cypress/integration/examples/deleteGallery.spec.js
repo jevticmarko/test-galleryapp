@@ -25,4 +25,7 @@ describe("Delete gallery testing", ()=>{
         cy.get(Locators.Create.pageTitle).should("have.text", "All Galleries")
 
     })
+    afterEach("Clear cache", ()=>{
+        cy.clearLocalStorage()
+    })
 })

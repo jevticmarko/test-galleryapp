@@ -61,10 +61,9 @@ describe("Testing edit function", ()=>{
         cy.get(Locators.Create.deleteImg).eq(3).click()
         cy.get(Locators.Create.submit).eq(0).click()
     })
-
-
-
-
+    afterEach("Clear cache", ()=>{
+        cy.clearLocalStorage()
+    })
 
 
 })

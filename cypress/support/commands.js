@@ -34,3 +34,23 @@ Cypress.Commands.add("Login", (email, password)=>{
     cy.route("GET", "https://gallery-api.vivifyideas.com/api/galleries?page=1&term=").as("waiting")
     cy.wait("@waiting")
 })
+
+Cypress.Commands.add("AddComment",(comment)=>{
+    cy.get(Locators.Create.myGalleries).eq(1).click()
+    cy.wait(1000)
+    cy.get(Locators.Create.pageTitle).should("have.text", "My Galleries")
+    cy.get(Locators.Create.galleryTitle).eq(0).click()
+    cy.url().should("contain", "/galleries/")
+    cy.get("textarea").type(comment)
+    cy.get(Locators.Comment.addComment).eq(2).click()
+    cy.wait(1200)
+    cy.get(Locators.Comment.addedCom).should("be.visible")
+})
+
+Cypress.Commands.add("CreateGallery", (title, desc, image)=>{
+    cy.get(Locators.Create.title).type(title)
+    cy.get(Locators.Create.description).type(desc)
+    cy.get(Locators.Create.img).eq(2).type(image)
+    cy.get(Locators.Create.submit).eq(0).click()
+    cy.get(Locators.Create.pageTitle).should("have.text", "All Galleries")
+})
