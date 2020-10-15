@@ -1,9 +1,9 @@
 const Locators = require("../../fixtures/Locators.json")
 import {authRegister} from "../../page_objects/registerObject"
+import faker from "faker"
 
 describe ("Register testing", ()=>{
 
-    let correct_email = "testtest@test.com"
     let existing_email = "markojevtic192@gmail.com"
     let invalid_email1 = "markojevtic.gmail.com"
     let invalid_email2 = "markojevtic@gmail"
@@ -15,23 +15,20 @@ describe ("Register testing", ()=>{
     let incorrect_password_confirmation = "12345678"
     let first_name = "Marko"
     let last_name = "Jevtic"
+    const email = faker.internet.email()
 
     beforeEach("Visit register page", ()=>{
         cy.visit("/register")
         cy.url().should("contains", "register")
     })
-
-    it.only("Register user with POM", ()=>{
-        authRegister.register(first_name,last_name,"milojkomilojkovic@gmail.com",correct_password,correct_password)
-    })
-
-
-
-
+    
+    //it("Register user with POM", ()=>{
+    //    authRegister.register(first_name, last_name, email , correct_password, correct_password)
+    //})
 
     it("Create user without first name", ()=>{
         cy.get(Locators.Register.lastName).type(last_name)
-        cy.get(Locators.Register.rEmail).type(correct_email)
+        cy.get(Locators.Register.rEmail).type(email)
         cy.get(Locators.Register.rPassword).type(correct_password)
         cy.get(Locators.Register.rPasswordConfirmation).type(correct_password)
         cy.get(Locators.Register.termsAndConditions).click()
@@ -42,7 +39,7 @@ describe ("Register testing", ()=>{
     })
     it("Create user without last name", ()=>{
         cy.get(Locators.Register.firstName).type(first_name)
-        cy.get(Locators.Register.rEmail).type(correct_email)
+        cy.get(Locators.Register.rEmail).type(email)
         cy.get(Locators.Register.rPassword).type(correct_password)
         cy.get(Locators.Register.rPasswordConfirmation).type(correct_password)
         cy.get(Locators.Register.termsAndConditions).click()
@@ -54,7 +51,7 @@ describe ("Register testing", ()=>{
     it("Create user without password", ()=>{
         cy.get(Locators.Register.firstName).type(first_name)
         cy.get(Locators.Register.lastName).type(last_name)
-        cy.get(Locators.Register.rEmail).type(correct_email)
+        cy.get(Locators.Register.rEmail).type(email)
         cy.get(Locators.Register.termsAndConditions).click()
         cy.get(Locators.Register.rSubmit).click()
         cy.get(Locators.Register.rPassword).then(($input)=>{
@@ -64,7 +61,7 @@ describe ("Register testing", ()=>{
     it("Create user without password confirmation", ()=>{
         cy.get(Locators.Register.firstName).type(first_name)
         cy.get(Locators.Register.lastName).type(last_name)
-        cy.get(Locators.Register.rEmail).type(correct_email)
+        cy.get(Locators.Register.rEmail).type(email)
         cy.get(Locators.Register.rPassword).type(correct_password)
         cy.get(Locators.Register.termsAndConditions).click()
         cy.get(Locators.Register.rSubmit).click()
@@ -75,7 +72,7 @@ describe ("Register testing", ()=>{
     it("Password confirmation does not match", ()=>{
         cy.get(Locators.Register.firstName).type(first_name)
         cy.get(Locators.Register.lastName).type(last_name)
-        cy.get(Locators.Register.rEmail).type(correct_email)
+        cy.get(Locators.Register.rEmail).type(email)
         cy.get(Locators.Register.rPassword).type(correct_password)
         cy.get(Locators.Register.rPasswordConfirmation).type(incorrect_password_confirmation)
         cy.get(Locators.Register.termsAndConditions).click()
@@ -85,7 +82,7 @@ describe ("Register testing", ()=>{
     it("Password shorter than required", ()=>{
         cy.get(Locators.Register.firstName).type(first_name)
         cy.get(Locators.Register.lastName).type(last_name)
-        cy.get(Locators.Register.rEmail).type(correct_email)
+        cy.get(Locators.Register.rEmail).type(email)
         cy.get(Locators.Register.rPassword).type(invalid_password1)
         cy.get(Locators.Register.rPasswordConfirmation).type(invalid_password1)
         cy.get(Locators.Register.termsAndConditions).click()
@@ -95,7 +92,7 @@ describe ("Register testing", ()=>{
     it("Password does not contain numbers", ()=>{
         cy.get(Locators.Register.firstName).type(first_name)
         cy.get(Locators.Register.lastName).type(last_name)
-        cy.get(Locators.Register.rEmail).type(correct_email)
+        cy.get(Locators.Register.rEmail).type(email)
         cy.get(Locators.Register.rPassword).type(invalid_password2)
         cy.get(Locators.Register.rPasswordConfirmation).type(invalid_password2)
         cy.get(Locators.Register.termsAndConditions).click()
@@ -161,11 +158,22 @@ describe ("Register testing", ()=>{
     it("Register user without checking terms and conditions box", ()=>{
         cy.get(Locators.Register.firstName).type(first_name)
         cy.get(Locators.Register.lastName).type(last_name)
-        cy.get(Locators.Register.rEmail).type(correct_email)
+        cy.get(Locators.Register.rEmail).type(email)
         cy.get(Locators.Register.rPassword).type(correct_password)
         cy.get(Locators.Register.rPasswordConfirmation).type(correct_password)
         cy.get(Locators.Register.rSubmit).click()
         cy.get(Locators.Register.alertMessage).should("be.visible").and("have.text", "The terms and conditions must be accepted.")
+    })
+    it("Register user", ()=>{
+        cy.get(Locators.Register.firstName).type(first_name)
+        cy.get(Locators.Register.lastName).type(last_name)
+        cy.get(Locators.Register.rEmail).type(email)
+        cy.get(Locators.Register.rPassword).type(correct_password)
+        cy.get(Locators.Register.rPasswordConfirmation).type(correct_password)
+        cy.get(Locators.Register.termsAndConditions).click()
+        cy.get(Locators.Register.rSubmit).click()
+        cy.get(Locators.Create.pageTitle).should("have.text", "All Galleries")
+        cy.get(Locators.Login.Logout).eq(3).should("be.visible")
     })
 
     afterEach("Clear cache", ()=>{
